@@ -1,0 +1,18 @@
+
+ion-menu{
+    .profile{
+        font-size: 20px;
+        color: white;
+    }
+    ion-content{
+        --ion-background-color:var(--ion-color-tertiary);
+    }
+    ion-item,ion-icon{
+        color: white;
+    }
+    .log-out{
+        position: relative;
+        bottom: 0px;
+        --ion-background-color: var(--ion-color-tertiary);
+    }
+}

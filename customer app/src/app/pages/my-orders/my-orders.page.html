@@ -1,0 +1,23 @@
+<ion-header>
+    <app-toolbar [title]="'My Orders'"></app-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list *ngIf="orders">
+      <ion-card *ngFor="let order of orders">
+        <ion-card-header>
+          <ion-card-subtitle> {{order.date | date:'shortDate'}}</ion-card-subtitle>
+          <ion-card-title>{{order.items.length}} Items </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+         <ion-list>
+           <ion-item *ngFor="let item of order.items">
+              <ion-label>{{item.quantity}} X {{item.title}}</ion-label>
+              <ion-label>Price : {{item.quantity * item.price | currency:'USD'}} </ion-label>
+           </ion-item>
+         </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </ion-content>
+  

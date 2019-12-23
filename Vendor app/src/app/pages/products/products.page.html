@@ -1,0 +1,25 @@
+<ion-header>
+  <app-toolbar [title]="'Products'"></app-toolbar>
+ </ion-header>
+
+<ion-content>
+<!-- Searchbar with cancel button always shown -->
+<ion-searchbar showCancelButton="always" #value (ionInput)="applyFilter(value.value)"></ion-searchbar>
+<ion-list>
+    <ion-item class="dataRow">
+        <ion-label>Title</ion-label>
+        <ion-label>Price</ion-label>
+        <ion-button color="light"  >Options</ion-button>
+      </ion-item>
+    <ion-item *ngFor="let product of filteredProducts" class="dataRow">
+      <ion-label>{{product.title}}</ion-label>
+      <ion-label>{{product.price}}</ion-label>
+      <ion-button color="tertiary" [routerLink]="['/products',product.key]" >Edit</ion-button>
+    </ion-item>
+</ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" routerLink="/products/new">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

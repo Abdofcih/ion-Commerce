@@ -1,0 +1,19 @@
+<ion-card>
+    <img [src]="product.imgUrl" alt="" />
+    <ion-card-header>
+      <ion-card-subtitle>{{product.cat}}</ion-card-subtitle>
+      <ion-card-title>{{product.title}}</ion-card-title>
+      <ion-card-title>{{product.price  | currency}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="shoppingCart">
+       <!-- *ngIf="shoppingCart" -->
+            <ion-button 
+              *ngIf="getQuantity() === 0 ; else updateQuantity"
+              (click)="addToShopingCart()"
+              expand="block">Add to Cart</ion-button>
+            <ng-template #updateQuantity>
+                <product-quantity [product]="product" [shopping-cart]="shoppingCart">
+                </product-quantity>
+            </ng-template>
+      </ion-card-content>
+  </ion-card>

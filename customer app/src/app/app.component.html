@@ -1,0 +1,46 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar color="tertiary">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>      
+        <ion-list>
+          <ion-menu-toggle>
+              <ion-item lines="none" class="profile" [routerLink]="[profilePage.url]">
+                  <ion-icon slot="start" [name]="profilePage.icon"></ion-icon>
+                  <ion-label *ngIf="Auth.userObs | async as user">{{user.displayName}}</ion-label>
+                  <ion-label *ngIf="!(Auth.userObs | async)">Anonymous</ion-label>
+                </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <div class="log-out">
+       <ion-menu-toggle auto-hide="false" >
+         <ion-item *ngIf="Auth.userObs | async" >
+          <ion-icon slot="start" name="log-out"></ion-icon>
+          <ion-label (click)="logout()">Log out </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
+        <ion-item *ngIf="!(Auth.userObs | async)">       
+          <ion-icon slot="start" name="log-in"></ion-icon>
+          <ion-label routerLink="/login">Log in </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      </div>
+    
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

@@ -1,0 +1,70 @@
+<ion-header>
+  <app-toolbar [title]="'Products'"></app-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button expand="block" color="primary" (click)="pickImage()"> Image </ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-lg="6">
+          <ion-card>
+              <ion-card-header>
+                <ion-card-title>Add Product</ion-card-title>
+              </ion-card-header>
+             <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+                <ion-item>
+                    <ion-label position="floating">Title <ion-text color="danger">*</ion-text></ion-label>
+                    <ion-input type="text" [(ngModel)]="product.title" name="title" #title="ngModel" required></ion-input>
+                 </ion-item>
+                  <ion-text color="danger" *ngIf="title.touched && title.invalid">Title is required</ion-text>
+                  <ion-item>
+                    <ion-label position="floating">Description</ion-label>
+                    <ion-input type="text" [(ngModel)]="product.description" name="description" #description="ngModel"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Price <ion-text color="danger">*</ion-text></ion-label>
+                    <ion-input type="number" [(ngModel)]="product.price" name="price" #price="ngModel" required [min]="0"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger" *ngIf="price.touched && price.invalid">
+                      <ion-text color="danger" *ngIf="price?.errors.required"> Price is required</ion-text>
+                      <ion-text color="danger" *ngIf="price?.errors.min"> Price is Minimum 0 </ion-text>
+                  </ion-text>
+                    <ion-item>
+                      <ion-label>Category <ion-text color="danger">*</ion-text></ion-label>
+                      <ion-select placeholder="Select One" [(ngModel)]="product.cat" name="cat" #cat="ngModel" required>
+                        <ion-select-option *ngFor="let cat of categoriesObs | async" [value]="cat.key" >{{cat.name}}</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <ion-text color="danger" *ngIf="cat.touched && cat.invalid">Category is required</ion-text>
+                    <ion-item>
+                      <ion-label position="floating">Quantity <ion-text color="danger">*</ion-text></ion-label>
+                      <ion-input type="number" [(ngModel)]="product.quantity" name="quantity"  #quantity="ngModel" required></ion-input>
+                    </ion-item>
+                    <ion-text color="danger" *ngIf="quantity.touched && quantity.invalid">Quantity is required</ion-text>
+                    <ion-item>
+                      <ion-label position="floating">Image Url <ion-text color="danger">*</ion-text></ion-label>
+                      <ion-input type="text" [(ngModel)]="product.imgUrl" name="imgUrl" #imgUrl="ngModel" required></ion-input>
+                    </ion-item>
+                    <ion-text color="danger" *ngIf="imgUrl.touched && imgUrl.invalid">Image  is required</ion-text>
+            
+               <ion-button expand="block" color="primary" type="submit"> Add </ion-button>
+               <ion-button expand="block" color="danger" type="button" (click)="delete() " *ngIf="id"> Delete </ion-button>
+             </form>
+            </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="6" >
+          <ion-card>
+              <ion-card-header>
+                  <ion-card-title>{{product.title}}</ion-card-title>
+                  <ion-card-subtitle>{{product.price | currency:'USD':true}}</ion-card-subtitle>
+              </ion-card-header>
+            
+              <ion-card-content>
+                  {{product.description}}
+                <ion-img [src]="product.imgUrl" *ngIf="product.imgUrl"></ion-img>
+              </ion-card-content>
+            </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

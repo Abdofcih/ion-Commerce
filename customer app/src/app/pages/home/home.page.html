@@ -1,0 +1,20 @@
+<ion-header>
+ <app-toolbar [title]="'Home'"></app-toolbar>
+</ion-header>
+
+<ion-content>
+      <ion-item class="sticky-top">
+        <ion-label>Category </ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="filterdCategory" (ionChange)="filterCategory()">
+            <ion-select-option [value]="null" >All</ion-select-option>
+          <ion-select-option *ngFor="let cat of categoriesObs | async" [value]="cat.key" >{{cat.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    <ion-grid class="ion-margin-top">
+        <ion-row>
+           <ion-col size-xs="12" size-md="6" *ngFor="let product of filteredProducts">
+                   <product-card [product]="product" [shopping-cart]="cart"></product-card>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
